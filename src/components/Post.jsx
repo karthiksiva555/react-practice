@@ -1,15 +1,12 @@
+import classes from './Post.module.css';
 
-const names = ['Chickpea', 'Vaishnavi']
-
-function Post() {    
-    const chosenName = Math.random() > 0.5 ? names[0] : names[1];
+function Post(details) {    
     return (
-        <div>
-            <p>{chosenName}</p>
-            <p>{1+1}</p>
-            <p>React is awesome!</p>
+        <div className={classes.post}>
+            <p className={classes.author}>{details.author}</p>
+            <p>{details.description}</p>
         </div>
-    )
+    );
 }
 
-export default Post
+export default Post;
