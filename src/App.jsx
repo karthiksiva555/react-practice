@@ -1,7 +1,7 @@
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Post from './components/Post.jsx'
+import PostList from './components/PostList.jsx'
 
 function App() {
 
@@ -15,9 +15,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <Post author="Siva Karthik" description = "React is great!"/>
-      <Post author="Vaishnavi" description = "Nurses are kind"/>
-      <Post author="Chickpea" description = "Milk is tasty!"/>
+      <PostList />
     </>
   )
 }
