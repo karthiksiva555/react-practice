@@ -1,40 +1,39 @@
 import NewPost from './NewPost';
 import Post from './Post';
 import classes from './PostList.module.css';
+import Modal from './Modal.jsx';
 import { useState } from 'react';
-import Modal from './Modal';
 
-function PostList() {
+function PostList({isPosting, onStopPosting}) {
 
-    const [enteredBody, setEnteredBody] = useState('');
-    const [enteredAuthor, setEnteredAuthor] = useState('');
-    const [showModal, setShowModal] = useState(true);
+    const [posts, setPosts] = useState([]);
 
-    function changeBodyHandler(event) {
-        setEnteredBody(event.target.value);
-    }
-
-    function changeAuthorHandler(event) {
-        setEnteredAuthor(event.target.value);
-    }
-
-    function hideModalHandler(){
-        setShowModal(false);
+    function addPostHandler(postData){
+        // setPosts([postData, ...posts]); Works but not recommended
+        setPosts((existingPosts) => [postData, ...existingPosts]);
     }
 
     return (
         <>
             {
-                showModal && <Modal onClose={hideModalHandler}>
-                        <NewPost onBodyChange={changeBodyHandler} 
-                            onAuthorChange={changeAuthorHandler}/>
-                    </Modal>
-            }            
-            <ul className={classes.posts}>
-                <Post author={enteredAuthor} description = {enteredBody}/>
-                <Post author="Vaishnavi" description = "Nurses are kind"/>
-                <Post author="Chickpea" description = "Milk is tasty!"/>
-            </ul>
+                isPosting && 
+                <Modal onClose={onStopPosting}>
+                    <NewPost onCancel={onStopPosting} onAddPost={addPostHandler}/>
+                </Modal>
+            }
+            {
+                posts.length > 0 && 
+                <ul className={classes.posts}>
+                    {posts.map((post) => <Post key={post.body} author={post.author} body={post.body}/>)}
+                </ul>
+            }
+            {
+                posts.length === 0 &&
+                <div>
+                    <h2>There are no posts yet.</h2>
+                    <p>Click New Post button to add some!</p>
+                </div>
+            }
         </>
     )
 }
