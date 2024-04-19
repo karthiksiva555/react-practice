@@ -2,15 +2,33 @@ import NewPost from './NewPost';
 import Post from './Post';
 import classes from './PostList.module.css';
 import Modal from './Modal.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function PostList({isPosting, onStopPosting}) {
 
     const [posts, setPosts] = useState([]);
 
+    useEffect(()=>{
+        async function fetchPosts() {
+            const response = await fetch('http://localhost:8000/posts');
+            const resData = await response.json();
+            setPosts(resData.posts);
+        }
+        fetchPosts();
+    }, []) // This [] defines when to call the effect; 
+           // [] means no dependencies, so call the effect only on component load
+
     function addPostHandler(postData){
         // setPosts([postData, ...posts]); Works but not recommended
         setPosts((existingPosts) => [postData, ...existingPosts]);
+        // Send POST request to /posts api endpoint
+        fetch('http://localhost:8000/posts', {
+            method: 'POST',
+            body: JSON.stringify(postData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
     }
 
     return (
@@ -30,8 +48,8 @@ function PostList({isPosting, onStopPosting}) {
             {
                 posts.length === 0 &&
                 <div>
-                    <h2>There are no posts yet.</h2>
-                    <p>Click New Post button to add some!</p>
+                    <h2>There are no tasks yet.</h2>
+                    <p>Click New Task button to add some!</p>
                 </div>
             }
         </>

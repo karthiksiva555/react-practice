@@ -27,13 +27,13 @@ function NewPost({ onCancel, onAddPost }) {
   return (
     <form className={classes.form} onSubmit={submitHandler}>
       <p>
-        <label htmlFor="body">Text</label>
-        <textarea id="body" required rows={3} onChange={changeBodyHandler}/>
-      </p>
-      <p>
-        <label htmlFor="name">Your name</label>
+        <label htmlFor="name">Task</label>
         <input type="text" id="name" required onChange={changeAuthorHandler}/>
       </p>
+      <p>
+        <label htmlFor="body">Details</label>
+        <textarea id="body" required rows={3} onChange={changeBodyHandler}/>
+      </p>      
       <p className={classes.actions}>
         <button type="button" onClick={onCancel}>Cancel</button>
         <button>Submit</button>

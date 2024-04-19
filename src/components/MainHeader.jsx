@@ -7,12 +7,12 @@ function MainHeader({ onCreatePost }) {
     <header className={classes.header}>
       <h1 className={classes.logo}>
         <MdMessage />
-        React Poster
+        ToDo App
       </h1>
       <p>
         <button className={classes.button} onClick={onCreatePost}>
           <MdPostAdd size={18} />
-          New Post
+          New Task
         </button>
       </p>
     </header>
