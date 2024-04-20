@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import Posts from './Posts.jsx'
 import './index.css'
 import NewPost from './components/NewPost.jsx';
 import { RouterProvider, createBrowserRouter} from 'react-router-dom';
@@ -8,8 +8,9 @@ import RootLayout from './routes/RootLayout.jsx';
 
 const router = createBrowserRouter([
   { path: '/', element: <RootLayout/>, children:[
-    { path: '/', element: <App/> },
-    { path: '/create-post', element: <NewPost /> },
+    { path: '/', element: <Posts/>, children: [
+      { path: '/create-post', element: <NewPost /> }
+    ]},
     { path: '/inner', element: <h1>This element is under MainHeader</h1> }
   ]},
   { path: '/outer', element: <h1>This element is outside Layout</h1> }

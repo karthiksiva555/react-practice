@@ -1,10 +1,8 @@
-import NewPost from './NewPost';
 import Post from './Post';
 import classes from './PostList.module.css';
-import Modal from './Modal.jsx';
 import { useEffect, useState } from 'react';
 
-function PostList({isPosting, onStopPosting}) {
+function PostList() {
 
     const [posts, setPosts] = useState([]);
 
@@ -18,27 +16,21 @@ function PostList({isPosting, onStopPosting}) {
     }, []) // This [] defines when to call the effect; 
            // [] means no dependencies, so call the effect only on component load
 
-    function addPostHandler(postData){
-        // setPosts([postData, ...posts]); Works but not recommended
-        setPosts((existingPosts) => [postData, ...existingPosts]);
-        // Send POST request to /posts api endpoint
-        fetch('http://localhost:8000/posts', {
-            method: 'POST',
-            body: JSON.stringify(postData),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-    }
+    // function addPostHandler(postData){
+    //     // setPosts([postData, ...posts]); Works but not recommended
+    //     setPosts((existingPosts) => [postData, ...existingPosts]);
+    //     // Send POST request to /posts api endpoint
+    //     fetch('http://localhost:8000/posts', {
+    //         method: 'POST',
+    //         body: JSON.stringify(postData),
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     });
+    // }
 
     return (
         <>
-            {
-                isPosting && 
-                <Modal onClose={onStopPosting}>
-                    <NewPost onCancel={onStopPosting} onAddPost={addPostHandler}/>
-                </Modal>
-            }
             {
                 posts.length > 0 && 
                 <ul className={classes.posts}>
